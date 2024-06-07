@@ -67,8 +67,8 @@
         return m && allArtists.includes(cleanArtistName(m[1]));
       })
       .forEach((a) => {
-        a.style.setProperty("color", "rgb(255, 171, 49)", "important");
-        a.style.backgroundColor = "rgb(26, 26, 26)";
+        a.style.setProperty("color", "rgb(255 171 49)", "important");
+        a.style.backgroundColor = "rgb(26 26 26)";
       });
   };
 
@@ -117,16 +117,33 @@
         "table.view-page-details a[href^='/?q=artist:']"
       )
     );
+    const pageCount = response.responseXML.querySelectorAll(
+      "div.box div.columns.is-multiline a[href^='/read/']"
+    ).length;
     if (links.length > 0) {
       tagFaveArtists(
         links.map((a) => {
-          a.style.padding = "10px";
-          a.style.lineHeight = "38px";
-          a.style.setProperty("color", "rgb(183, 183, 183)", "important");
           const card = cards.find(
             (c) => c.parentElement.href === response.finalUrl
           );
-          card.querySelector("header").after(a);
+          const header = card.querySelector("header");
+          const pageCountDiv = document.createElement("div");
+          pageCountDiv.textContent = pageCount;
+          pageCountDiv.style.position = "absolute";
+          pageCountDiv.style.bottom = "10px";
+          pageCountDiv.style.right = "10px";
+          pageCountDiv.style.zIndex = 1;
+          pageCountDiv.style.paddingInline = "6px";
+          pageCountDiv.style.paddingBlock = "3px";
+          pageCountDiv.style.borderRadius = "5px";
+          pageCountDiv.style.color = "rgb(223 223 223)";
+          pageCountDiv.style.backgroundColor = "rgb(0 0 0 / 75%)";
+          pageCountDiv.style.fontWeight = "bold";
+          header.after(pageCountDiv);
+          a.style.padding = "10px";
+          a.style.lineHeight = "38px";
+          a.style.setProperty("color", "rgb(183 183 183)", "important");
+          header.after(a);
           return a;
         })
       );
