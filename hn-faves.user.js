@@ -8,6 +8,8 @@
 // @match        https://hentainexus.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=hentainexus.com
 // @grant        GM.xmlHttpRequest
+// @connect      github.com
+// @connect      githubusercontent.com
 // ==/UserScript==
 
 (function () {
